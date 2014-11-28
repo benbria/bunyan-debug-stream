@@ -1,0 +1,31 @@
+{
+  "name": "bunyan-debug-stream",
+  "version": "1.0.0",
+  "author": "Jason Walton <dev@lucid.thedreaming.org> (https://github.com/jwalton)",
+  "keywords": ["bunyan", "debug", "stream", "stdout", "error", "log", "pretty"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benbria/bunyan-debug-stream.git"
+  },
+  "dependencies": {
+    "colors": "^1.0.3",
+    "exception-formatter": "^1.0.2"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "coffee-script": "^1.8.0",
+    "longjohn": "^0.2.4",
+    "mocha": "^2.0.1"
+  },
+  "peerDependencies": {
+    "bunyan": "*"
+  },
+  "main": "./lib/BunyanDebugStream.js",
+  "scripts": {
+    "prepublish": "coffee -c -o lib src",
+    "test": "mocha"
+  },
+  "engines": {
+    "node": ">=0.10.1"
+  }
+}
