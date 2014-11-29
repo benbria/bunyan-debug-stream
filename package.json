@@ -1,8 +1,16 @@
 {
   "name": "bunyan-debug-stream",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Jason Walton <dev@lucid.thedreaming.org> (https://github.com/jwalton)",
-  "keywords": ["bunyan", "debug", "stream", "stdout", "error", "log", "pretty"],
+  "keywords": [
+    "bunyan",
+    "debug",
+    "stream",
+    "stdout",
+    "error",
+    "log",
+    "pretty"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/benbria/bunyan-debug-stream.git"
