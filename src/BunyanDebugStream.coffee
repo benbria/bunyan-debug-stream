@@ -204,15 +204,15 @@ class BunyanDebugStream extends Writable
         levelPrefix = if @_showLevel then (LEVELS[entry.level]?.prefix ? '      ') + ' ' else ''
 
         line = "
-            #{date}#{processStr}#{levelPrefix}#{src}#{prefixes}#{applyColors message, colorsToApply}\n
+            #{date}#{processStr}#{levelPrefix}#{src}#{prefixes}#{applyColors message, colorsToApply}
         "
 
-        line += "#{INDENT}#{request}\n" if request?
-        line += applyColors(values.join('\n') + '\n', colorsToApply) if values.length > 0
+        line += "\n#{INDENT}#{request}" if request?
+        line += "\n" + applyColors(values.join('\n'), colorsToApply) if values.length > 0
         return line
 
     _write: (entry, encoding, done) ->
-        @_out.write @_entryToString(entry)
+        @_out.write @_entryToString(entry) + "\n"
         done()
 
 module.exports = (options) ->
