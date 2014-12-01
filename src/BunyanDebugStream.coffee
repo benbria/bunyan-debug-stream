@@ -128,7 +128,9 @@ class BunyanDebugStream extends Writable
                     useColor: @_useColor,
                     debugStream: this
                 })
-                if isString result
+                if !result?
+                    # Hide the value
+                else if isString result
                     value = result
                 else
                     consumed[key] = true for key in (result.consumed ? [])
@@ -154,7 +156,7 @@ class BunyanDebugStream extends Writable
     _entryToString: (entry) ->
         if typeof(entry) is 'string' then entry = JSON.parse(entry)
 
-        colorsToApply = @_colors[entry.level]
+        colorsToApply = @_colors[entry.level ? bunyan.INFO]
 
         # src is the filename/line number
         src = srcToString entry.src, @_basepath, @options.basepathReplacement
@@ -171,6 +173,8 @@ class BunyanDebugStream extends Writable
             if entry[key]?
                 {message, value} = message = @_runStringifier(entry, key, stringifier, consumed, message)
                 values.push "#{INDENT}#{key}: #{value}" if value?
+            else
+                consumed[key] = true
 
         # Run our prefixers
         prefixes = []
@@ -178,6 +182,8 @@ class BunyanDebugStream extends Writable
             if entry[key]?
                 {message, value} = @_runStringifier(entry, key, prefixer, consumed, message)
                 prefixes.push value if value?
+            else
+                consumed[key] = true
 
         # Use JSON.stringify on whatever is left
         for key, value of entry
