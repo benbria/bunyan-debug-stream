@@ -37,7 +37,7 @@ applyColors = exports.applyColors = (message, colorList) ->
 # Transforms "/src/foo/index.coffee" to "/s/foo/".
 toShortFilename = exports.toShortFilename = (filename, basepath=null, replacement="./") ->
     if basepath?
-        if !endsWith(basepath, path.sep) then basepath += path.sep
+        if exports.isString(basepath) and !endsWith(basepath, path.sep) then basepath += path.sep
         filename = filename.replace basepath, replacement
 
     parts = filename.split path.sep
