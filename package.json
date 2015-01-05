@@ -17,13 +17,13 @@
   },
   "dependencies": {
     "colors": "^1.0.3",
-    "exception-formatter": "^1.0.2"
+    "exception-formatter": "^1.0.4"
   },
   "devDependencies": {
     "chai": "^1.10.0",
     "coffee-script": "^1.8.0",
     "longjohn": "^0.2.4",
-    "mocha": "^2.0.1"
+    "mocha": "^2.1.0"
   },
   "peerDependencies": {
     "bunyan": "*"

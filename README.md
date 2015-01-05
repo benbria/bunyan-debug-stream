@@ -15,7 +15,7 @@ Features
 * Colored output based on log level.
 * Concise and pretty stack traces using [exception-formatter](https://github.com/benbria/exception-formatter).
 * A [morgan](https://www.npmjs.org/package/morgan) inspired custom formatter for request/response
-  objects.  Will automatically fetch response time out of `req.responseTime` or `duration`
+  objects.  Will automatically fetch response time out of `res.responseTime` or `duration`
   (from [bunyan-middleware](https://github.com/tellnes/bunyan-middleware)) or
   `response-time` (from [express-bunyan-logger](https://github.com/villadora/express-bunyan-logger).)
 * Easy to customize output of different fields.
