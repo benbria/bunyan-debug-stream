@@ -1,6 +1,6 @@
 {
   "name": "bunyan-debug-stream",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Jason Walton <dev@lucid.thedreaming.org> (https://github.com/jwalton)",
   "keywords": [
     "bunyan",
