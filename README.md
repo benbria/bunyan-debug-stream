@@ -1,3 +1,5 @@
+Output stream for Bunyan which prints human readable logs.
+
 What is it?
 ===========
 
