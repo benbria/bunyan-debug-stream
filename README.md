@@ -72,7 +72,7 @@ the [colors](https://github.com/Marak/colors.js) module to color lines.  Pass in
 
     bunyanDebugStream({
         colors: {
-            'info': 'blue'
+            'info': 'blue',
             'error': ['red', 'bold']
         }
     })
