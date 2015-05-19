@@ -21,7 +21,9 @@
   },
   "devDependencies": {
     "chai": "^1.10.0",
+    "coffee-coverage": "^0.6.0",
     "coffee-script": "^1.8.0",
+    "istanbul": "^0.3.14",
     "longjohn": "^0.2.4",
     "mocha": "^2.1.0"
   },
@@ -31,7 +33,7 @@
   "main": "./lib/BunyanDebugStream.js",
   "scripts": {
     "prepublish": "coffee -c -o lib src",
-    "test": "mocha"
+    "test": "mocha && istanbul report text-summary lcov"
   },
   "engines": {
     "node": ">=0.10.1"
