@@ -1,5 +1,7 @@
 Output stream for Bunyan which prints human readable logs.
 
+[![NPM](https://nodei.co/npm/bunyan-debug-stream.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/bunyan-debug-stream/)
+
 What is it?
 ===========
 
