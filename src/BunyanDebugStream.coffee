@@ -25,6 +25,13 @@ LEVELS = do ->
 # out and format them in some special way.
 FIELDS_TO_IGNORE = ['src', 'msg', 'name', 'hostname', 'pid', 'level', 'time', 'v', 'err']
 
+# express-bunyan-logger adds a bunch of fields to the `req`, and we don't wnat to print them all.
+EXPRESS_BUNYAN_LOGGER_FIELDS = [
+    'remote-address', 'ip', 'method', 'url', 'referer', 'user-agent', 'body', 'short-body',
+    'http-version', 'response-hrtime', 'status-code', 'req-headers', 'res-headers', 'incoming',
+    'req_id'
+]
+
 INDENT = "  "
 
 # This takes log entries from Bunyan, and pretty prints them to the console.
@@ -221,7 +228,7 @@ class BunyanDebugStream extends Writable
         @_out.write @_entryToString(entry) + "\n"
         done()
 
-module.exports = (options) ->
+module.exports = exports = (options) ->
     return new BunyanDebugStream options
 
 # Build our custom versions of the standard Bunyan serializers.
@@ -258,7 +265,7 @@ exports.stdStringifiers = {
         # Get the statusCode
         statusCode = res?.statusCode ? entry['status-code']
         if statusCode?
-            status = "#{statusCode} "
+            status = "#{statusCode}"
             if useColor
                 statusColor = if statusCode < 200 then colors.grey \
                     else if statusCode < 400 then colors.green \
@@ -280,7 +287,7 @@ exports.stdStringifiers = {
             else
                 null
         if responseTime?
-            responseTime = "#{responseTime}ms "
+            responseTime = "#{responseTime}ms"
         else
             responseTime = ""
 
@@ -298,9 +305,11 @@ exports.stdStringifiers = {
         contentLength = if contentLength? then "- #{contentLength} bytes" else ""
 
         host = req.headers?.host or null
-        url = if host? then "#{host}#{req.url} " else "#{req.url} "
+        url = if host? then "#{host}#{req.url}" else "#{req.url}"
 
-        request = "#{req.method} #{user}#{url}#{status}#{responseTime}#{contentLength}"
+        fields = [req.method, user + url, status, responseTime, contentLength]
+        fields = fields.filter (f) -> !!f
+        request = fields.join ' '
 
         # If there's no message, then replace the message with the request
         replaceMessage = !entry.msg or
