@@ -86,4 +86,3 @@ exports.isString = (value) ->
     typeof value is 'string' or
         value and typeof value is 'object' and toString.call(value) is '[object String]' or
         false
-

@@ -42,6 +42,7 @@ class BunyanDebugStream extends Writable
     #   are an array of colors (e.g. `['magenta', 'bold']`.)  Uses the `colors` module to apply
     #   all colors to the message before logging.  You can also set `options.colors` to `false`
     #   to disable colors.
+    # * `options.forceColor` will turn color on, even if not using a TTY output.
     # * `options.basepath` is the absolute path of the root of your project.  If you're creating
     #   this `BunyanDebugStream` from a file called `app.js` in the root of your project, then
     #   this should be `__dirname`.
@@ -62,6 +63,9 @@ class BunyanDebugStream extends Writable
     #
     constructor: (@options={}) ->
         super {objectMode: true}
+
+        # Enable colors for non-tty stdout
+        if options.forceColor then colors.enabled = true
 
         # Compile color options
         @_colors = {}

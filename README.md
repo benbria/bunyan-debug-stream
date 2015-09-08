@@ -42,7 +42,8 @@ The most basic usage involves just creating a Bunyan logger which writes raw obj
             level:  'info',
             type:   'raw',
             stream: bunyanDebugStream({
-                basepath: __dirname // this should be the root folder of your project.
+                basepath: __dirname, // this should be the root folder of your project.
+                forceColor: true
             })
         }],
         serializers: bunyanDebugStream.serializers
@@ -78,6 +79,12 @@ the [colors](https://github.com/Marak/colors.js) module to color lines.  Pass in
             'error': ['red', 'bold']
         }
     })
+
+### forceColor
+
+By default, colors are disabled when outputting to a non-tty.  If you're having problems getting colors to work in
+grunt or gulp, set this to true.  Note that under the hood, this sets `colors.enabled` to true (see
+[colors.js#102](https://github.com/Marak/colors.js/issues/102)) so this may affect other modules that use `colors`.
 
 ### stringifiers and prefixers
 
@@ -197,5 +204,3 @@ Special Handling for Errors
 By default, errors are processed using [exception-formatter](https://github.com/benbria/exception-formatter).
 If you don't like the way exception-formatter works, you can specify your own `serializer` for `err`
 to print them however you like.  :)
-
-
