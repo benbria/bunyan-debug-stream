@@ -30,7 +30,7 @@ exports.dateToString = do ->
 applyColors = exports.applyColors = (message, colorList) ->
     return message if !message?
 
-    message = colors[color](message) for color in colorList
+    message = (colors[color](message) for color in colorList)
     return message
 
 # Transforms "/src/foo/bar.coffee" to "/s/f/bar".

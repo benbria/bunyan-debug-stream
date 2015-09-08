@@ -54,7 +54,8 @@ describe 'Tests with stringifiers', ->
                     statusCode: 404
             }
 
-            {consumed, value, replaceMessage} = bunyanDebugStream.stdStringifiers.req entry.req, {entry, useColor: false}
+            {consumed, value, replaceMessage} = bunyanDebugStream.stdStringifiers.req(
+                entry.req, {entry, useColor: false})
 
             expect(value).to.equal 'GET dave@foo.com/index.html 404 100ms - 500 bytes'
             expect('req' in consumed).to.be.true
@@ -76,7 +77,8 @@ describe 'Tests with stringifiers', ->
                 msg: 'hello'
             }
 
-            {consumed, value, replaceMessage} = bunyanDebugStream.stdStringifiers.req entry.req, {entry, useColor: false}
+            {consumed, value, replaceMessage} = bunyanDebugStream.stdStringifiers.req(
+                entry.req, {entry, useColor: false})
 
             expect(value).to.equal 'GET foo.com/index.html 200'
             expect('req' in consumed).to.be.true
