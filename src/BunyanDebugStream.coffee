@@ -65,7 +65,7 @@ class BunyanDebugStream extends Writable
         super {objectMode: true}
 
         # Enable colors for non-tty stdout
-        if options.forceColor then colors.enabled = true
+        if @options.forceColor then colors.enabled = true
 
         # Compile color options
         @_colors = {}
