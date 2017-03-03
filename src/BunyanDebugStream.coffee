@@ -32,8 +32,6 @@ EXPRESS_BUNYAN_LOGGER_FIELDS = [
     'req_id'
 ]
 
-INDENT = "  "
-
 # This takes log entries from Bunyan, and pretty prints them to the console.
 #
 class BunyanDebugStream extends Writable
@@ -112,6 +110,7 @@ class BunyanDebugStream extends Writable
         @_prefixers = @options.prefixers ? {}
         @_out = @options.out ? process.stdout
         @_basepath = @options.basepath ? process.cwd()
+        @_indent = @options.indent ? "  "
 
         @_showDate = @options.showDate ? true
         @_showLoggerName = @options.showLoggerName ? true
@@ -160,7 +159,7 @@ class BunyanDebugStream extends Writable
 
         # Indent the result correctly
         if value?
-            value = value.replace /\n/g, "\n#{INDENT}"
+            value = value.replace /\n/g, "\n#{@_indent}"
 
         return {message: newMessage, value}
 
@@ -183,7 +182,7 @@ class BunyanDebugStream extends Writable
         for key, stringifier of @_stringifiers
             if entry[key]?
                 {message, value} = message = @_runStringifier(entry, key, stringifier, consumed, message)
-                values.push "#{INDENT}#{key}: #{value}" if value?
+                values.push "#{@_indent}#{key}: #{value}" if value?
             else
                 consumed[key] = true
 
@@ -205,7 +204,7 @@ class BunyanDebugStream extends Writable
             if valueString?
                 # Make sure value isn't too long.
                 cols = process.stdout.columns
-                start = "#{INDENT}#{key}: "
+                start = "#{@_indent}#{key}: "
                 if cols and (valueString.length + start.length) >= cols
                     valueString = valueString[0...(cols - 3 - start.length)] + "..."
                 values.push "#{start}#{valueString}"
@@ -224,7 +223,7 @@ class BunyanDebugStream extends Writable
             #{date}#{processStr}#{levelPrefix}#{src}#{prefixes}#{applyColors message, colorsToApply}
         "
 
-        line += "\n#{INDENT}#{request}" if request?
+        line += "\n#{@_indent}#{request}" if request?
         line += "\n" + applyColors(values.join('\n'), colorsToApply) if values.length > 0
         return line
 
@@ -329,6 +328,4 @@ exports.stdStringifiers = {
             basepath: debugStream._basepath
             basepathReplacement: debugStream.options?.basepathReplacement
         }
-
-
 }
