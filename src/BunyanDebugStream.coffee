@@ -224,7 +224,7 @@ class BunyanDebugStream extends Writable
         "
 
         line += "\n#{@_indent}#{request}" if request?
-        line += "\n" + applyColors(values.join('\n'), colorsToApply) if values.length > 0
+        line += "\n" + values.map((v) -> applyColors(v, colorsToApply)).join('\n') if values.length > 0
         return line
 
     _write: (entry, encoding, done) ->
