@@ -7,6 +7,9 @@ exceptionFormatter = require 'exception-formatter'
 
 {srcToString, applyColors, dateToString, isString} = require './utils'
 
+# Enable colors for non-tty stdout
+colors.enabled = true;
+
 # A list of various properties for the different bunyan levels.
 LEVELS = do ->
     answer = {}
