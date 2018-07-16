@@ -116,6 +116,7 @@ class BunyanDebugStream extends Writable
         @_showLoggerName = @options.showLoggerName ? true
         @_showPid = @options.showPid ? true
         @_showLevel = @options.showLevel ? true
+        @_showMetadata = @options.showMetadata ? true
 
     # Runs a stringifier.
     # Appends any keys consumed to `consumed`.
@@ -195,19 +196,20 @@ class BunyanDebugStream extends Writable
             else
                 consumed[key] = true
 
-        # Use JSON.stringify on whatever is left
-        for key, value of entry
-            # Skip fields we don't care about
-            if consumed[key] then continue
+        if @_showMetadata
+          # Use JSON.stringify on whatever is left
+          for key, value of entry
+              # Skip fields we don't care about
+              if consumed[key] then continue
 
-            valueString = JSON.stringify value
-            if valueString?
-                # Make sure value isn't too long.
-                cols = process.stdout.columns
-                start = "#{@_indent}#{key}: "
-                if cols and (valueString.length + start.length) >= cols
-                    valueString = valueString[0...(cols - 3 - start.length)] + "..."
-                values.push "#{start}#{valueString}"
+              valueString = JSON.stringify value
+              if valueString?
+                  # Make sure value isn't too long.
+                  cols = process.stdout.columns
+                  start = "#{@_indent}#{key}: "
+                  if cols and (valueString.length + start.length) >= cols
+                      valueString = valueString[0...(cols - 3 - start.length)] + "..."
+                  values.push "#{start}#{valueString}"
 
         prefixes = if prefixes.length > 0 then "[#{prefixes.join(',')}] " else ''
 
