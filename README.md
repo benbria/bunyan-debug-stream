@@ -158,6 +158,67 @@ This defaults to the second argument in `process.argv` (minus the path and the e
 on the assumption that you're running with `node myApp.js`, but you can override this by passing
 an explicit `options.processName`.
 
+### showDate
+
+Turned on by default.
+If `options.showDate` is false, bunyan-debug-stream doesn't print timestamps in the output, e.g.:
+
+```
+    MyLogger[649] INFO:  main (./s/app:195): [baz] Hello World
+```
+
+### showPid
+
+Turned on by default.
+If `options.showPid` is false, bunyan-debug-stream doesn't print the process ID in the output, e.g.:
+
+```
+    Nov 27 09:50:04 MyLogger INFO:  main (./s/app:195): [baz] Hello World
+```
+
+### showLoggerName
+
+Turned on by default.
+If `options.showLoggerName` is false, bunyan-debug-stream doesn't print `name` property of the logger in the output, e.g.:
+
+```
+    Nov 27 09:50:04 [649] INFO:  main (./s/app:195): [baz] Hello World
+```
+
+### showLevel
+
+Turned on by default.
+If `options.showLevel` is false, bunyan-debug-stream doesn't print the log level (e.g. INFO, DEBUG) in the output, e.g.:
+
+```
+    Nov 27 09:50:04 MyLogger[649]  main (./s/app:195): [baz] Hello World
+```
+
+### showMetadata
+
+Turned on by default.
+If `options.showMetadata` is false, bunyan-debug-stream doesn't print arbitrary properties of passed
+metadata objects (also known as extra fields) to the log. However, this option does not apply to properties
+that have specific prefixer or stringifier handlers.  
+For example, if you have `foo` stringifier and arbitrary field `extraField: 1`, like below:
+
+```
+    const log = bunyanDebugStream({
+        stringifiers: {
+            'foo': function(foo) {return "The value of bar is " + foo.bar;}
+        }
+    });
+
+    log.info({extraField: 1, foo: {bar: "baz"}}, "Hello World");
+```
+
+Then you can expect that `extraField` will get omitted, and only `foo` will be printed:
+
+```
+    Nov 27 09:50:04 MyLogger[649] INFO:  main (./s/app:195): Hello World
+      foo: The value of bar is baz
+```
+
 ### maxExceptionLines
 
 If present, `options.maxExceptionLines` is passed along to exception-formatter as
