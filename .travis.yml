@@ -1,11 +1,29 @@
 language: node_js
 node_js:
-  - '0.10'
+  - 'node'
+  - '10'
+  - '8'
+  - '6'
   - '0.12'
-  - 'iojs'
+  - '0.10'
 install:
   - npm install
-  # node 0.10 doesn't automatically install peer dependencies.
   - npm install bunyan
 after_success:
-  - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
+  - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
+jobs:
+  include:
+    - stage: release
+      node_js: lts/*
+      before_install:
+        - npm install -g npm
+      install:
+        - travis_retry npm install
+      before_script: skip
+      script: npm run semantic-release
+      after_success: skip
+      after_failure: skip
+      after_script: skip
+cache:
+  directories:
+    - ~/.npm

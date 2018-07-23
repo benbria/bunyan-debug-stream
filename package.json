@@ -1,6 +1,6 @@
 {
   "name": "bunyan-debug-stream",
-  "version": "1.0.8",
+  "version": "0.0.0-semantic-release",
   "author": "Jason Walton <dev@lucid.thedreaming.org> (https://github.com/jwalton)",
   "keywords": [
     "bunyan",
@@ -20,13 +20,15 @@
     "exception-formatter": "^1.0.4"
   },
   "devDependencies": {
+    "@benbria/semantic-release-config": "^1.0.0",
     "chai": "^1.10.0",
     "coffee-coverage": "^0.6.2",
     "coffee-script": "^1.8.0",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.16",
     "longjohn": "^0.2.4",
-    "mocha": "^2.1.0"
+    "mocha": "^2.1.0",
+    "semantic-release": "^15.6.3"
   },
   "peerDependencies": {
     "bunyan": "*"
@@ -34,7 +36,8 @@
   "main": "./lib/BunyanDebugStream.js",
   "scripts": {
     "prepublish": "coffee -c -o lib src",
-    "test": "mocha && istanbul report text-summary lcov"
+    "test": "mocha && istanbul report text-summary lcov",
+    "semantic-release": "semantic-release"
   },
   "engines": {
     "node": ">=0.10.1"
