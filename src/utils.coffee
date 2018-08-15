@@ -4,7 +4,7 @@ colors = require 'colors/safe'
 
 endsWith = (str, suffix) -> str[-suffix.length..] is suffix
 
-lpad = (str, count, fill=' ') ->
+exports.lpad = lpad = (str, count, fill=' ') ->
     str = "" + str
     str = fill + str while str.length < count
     return str
@@ -18,13 +18,18 @@ exports.dateToString = do ->
     ]
 
     return (date) ->
-        time = [
-            (lpad date.getHours(),   2, '0'),
-            (lpad date.getMinutes(), 2, '0'),
-            (lpad date.getSeconds(), 2, '0')
-        ].join ':'
+        if(!date)
+            return date
+        else if(date instanceof Date)
+            time = [
+                (lpad date.getHours(),   2, '0'),
+                (lpad date.getMinutes(), 2, '0'),
+                (lpad date.getSeconds(), 2, '0')
+            ].join ':'
 
-        timestamp = [MONTHS[date.getMonth()], date.getDate(), time].join ' '
+            return [MONTHS[date.getMonth()], date.getDate(), time].join ' '
+        else
+            return '' + date
 
 # Applies one or more colors to a message, and returns the colorized message.
 applyColors = exports.applyColors = (message, colorList) ->
