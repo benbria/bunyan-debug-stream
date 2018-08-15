@@ -8,7 +8,6 @@ node_js:
   - '0.10'
 install:
   - npm install
-  - npm install bunyan
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
 jobs:
