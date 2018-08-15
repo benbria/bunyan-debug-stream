@@ -48,6 +48,10 @@ class BunyanDebugStream extends Writable
     #   Defaults to '.'.
     # * `options.showProcess` if true then will show "processName loggerName[pid]" in the output.
     #   If false (the default) then this will just be "loggerName[pid]".
+    # * `options.showDate` if true, then show the date.  This assumes that `entry.time` is a `Date`
+    #   object.  If false, time will not be shown.  You can also supply a `fn(time, entry)` here,
+    #   which will be called to generate a date string if you want to customize the output
+    #   format (or if `entry.time` is not a Date object).
     # * `options.processName` is the name of this process.  Defaults to the filename of the second
     #   argument in `process.argv` (on the assumption that you're running something like
     #   `node myApp.js`.)
@@ -213,7 +217,14 @@ class BunyanDebugStream extends Writable
 
         prefixes = if prefixes.length > 0 then "[#{prefixes.join(',')}] " else ''
 
-        date = if @_showDate then "#{dateToString entry.time ? new Date()} " else ''
+        date = undefined
+        if(@_showDate && typeof(@_showDate) == 'function')
+            date = "#{@_showDate(entry.time, entry)} "
+        else if @_showDate
+            date = "#{dateToString(entry.time ? new Date())} "
+        else
+            date = ''
+
         processStr = ""
         if @options.showProcess  then processStr += @_processName
         if @_showLoggerName      then processStr += entry.name

@@ -169,6 +169,14 @@ If `options.showDate` is false, bunyan-debug-stream doesn't print timestamps in 
     MyLogger[649] INFO:  main (./s/app:195): [baz] Hello World
 ```
 
+You may also specify a `function(time, entry)` here to generate a custom date string:
+
+```js
+{
+    showDate: (time) => return time.toISOString()
+}
+```
+
 ### showPid
 
 Turned on by default.
@@ -201,7 +209,7 @@ If `options.showLevel` is false, bunyan-debug-stream doesn't print the log level
 Turned on by default.
 If `options.showMetadata` is false, bunyan-debug-stream doesn't print arbitrary properties of passed
 metadata objects (also known as extra fields) to the log. However, this option does not apply to properties
-that have specific prefixer or stringifier handlers.  
+that have specific prefixer or stringifier handlers.
 For example, if you have `foo` stringifier and arbitrary field `extraField: 1`, like below:
 
 ```
