@@ -173,7 +173,7 @@ You may also specify a `function(time, entry)` here to generate a custom date st
 
 ```js
 {
-    showDate: (time) => return time.toISOString()
+    showDate: (time) => time.toISOString()
 }
 ```
 
