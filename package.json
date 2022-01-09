@@ -16,7 +16,7 @@
     "url": "https://github.com/benbria/bunyan-debug-stream.git"
   },
   "dependencies": {
-    "colors": "^1.0.3",
+    "colors": "1.4.0",
     "exception-formatter": "^1.0.4"
   },
   "devDependencies": {
